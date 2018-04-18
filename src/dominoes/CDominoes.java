@@ -24,7 +24,15 @@ public class CDominoes {
             }
         }
     }
-     
+    
+    public ArrayList<int[]> getDominoList(){
+        return dominoList;
+    }
+    
+    public void updateDominoList(ArrayList<int[]> newList){
+        dominoList = newList;
+    }
+    
     public String toString(){
         
         String stateOfDominoes = "";
@@ -37,3 +45,4 @@ public class CDominoes {
         
         return stateOfDominoes;
     }
+}
