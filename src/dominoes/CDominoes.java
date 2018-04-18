@@ -11,16 +11,16 @@ import java.util.*;
  */
 public class CDominoes {
     
-    int[] dominoe = new int[3];
-    ArrayList<int[]> dominoeList = new ArrayList<>();
+    private int[] domino = new int[3];
+    private ArrayList<int[]> dominoList = new ArrayList<>();
     
     public void initializeDominoes(){
         for(int i = 0; i < 7; i++){
             for(int j = i; j < 7; j++){
-                dominoe[0] = i; //left
-                dominoe[1] = j; //right
-                dominoe[2] = 1; //available
-                dominoeList.add(dominoe.clone());
+                domino[0] = i; //left
+                domino[1] = j; //right
+                domino[2] = 1; //available
+                dominoList.add(domino.clone());
             }
         }
     }
@@ -28,13 +28,12 @@ public class CDominoes {
     public String toString(){
         
         String stateOfDominoes = "";
-        int[] dominoeTemp = new int[3];
+        int[] dominoTemp = new int[3];
         
-        for(int i = 0; i < dominoeList.size()-1; i++){
-            dominoeTemp = dominoeList.get(i);
-            stateOfDominoes += "Left: " + dominoeTemp[0] + " Right: " + dominoeTemp[1] + " Available: " + dominoeTemp[2] + System.lineSeparator();
+        for(int i = 0; i < dominoList.size()-1; i++){
+            dominoTemp = dominoList.get(i);
+            stateOfDominoes += "Left: " + dominoTemp[0] + " Right: " + dominoTemp[1] + " Available: " + dominoTemp[2] + System.lineSeparator();
         }
         
         return stateOfDominoes;
     }
-}
