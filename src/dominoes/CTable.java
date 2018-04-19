@@ -5,6 +5,7 @@
  */
 package dominoes;
 
+import java.util.ArrayList;
 /**
  * Stores the state of the sorted pieces.
  */
