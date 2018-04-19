@@ -29,6 +29,19 @@ public class CDominoes {
         return dominoList;
     }
     
+    public boolean canDraw(){
+        for(int i = 0; i < dominoList.size(); i++){
+            if(dominoList.get(i)[2] == 1){
+                return  true;
+            }
+        }
+        return false;
+    }
+    
+    public void updateDominoAvailabilty(int locationInDominoList, int Available){
+        dominoList.get(locationInDominoList)[2] = Available;
+    }
+    
     public void updateDominoList(ArrayList<int[]> newList){
         dominoList = newList;
     }
