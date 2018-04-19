@@ -24,70 +24,98 @@ public class DominoesMain {
         r.shuffleDominoes(dominoBag.getDominoList());
         //create players
         CPlayer p1 = new CPlayer();
-        p1.initializeHand(dominoBag.getDominoList());
         CPlayer p2 = new CPlayer();
-        p2.initializeHand(dominoBag.getDominoList());
         //create table
         CTable table = new CTable();
-        //who first, first piece
+        //pick first domino for table
+        table.firstPiece(dominoBag.getDominoList().get(0));
+        dominoBag.getDominoList().get(0)[2] = 0;
+        //who first
         boolean playerOneTurn = r.isPlayerOneFirst();
         Scanner s = new Scanner(System.in);
+        //draw hands
+        p1.initilizeHand(dominoBag.getDominoList());
+        p2.initilizeHand(dominoBag.getDominoList());
         if (playerOneTurn) {
-            System.out.println("Player One is first. What domino will you play?");
-            /*
-            Scanner logic
-            */
+            System.out.println("Player One is first.");
         } else {
-            System.out.println("Player Two is first. What domino will you play?");
-            /*
-            Scanner logic
-            */
+            System.out.println("Player Two is first.");
         }
         gameLoop(table, p1, p2, dominoBag, playerOneTurn, s);
     }
     
     public static void gameLoop(CTable table, CPlayer p1, CPlayer p2, CDominoes dominoBag, boolean playerOneTurn, Scanner s) {
-        int passCounter = 0
-        while(p1.getPlayerHand.size() > 0 && p2.getPlayerHand.size() > 0 && passCounter < 2) {
+        int passCounter = 0;
+        while(p1.getPlayerHand().size() > 0 && p2.getPlayerHand().size() > 0 && passCounter < 2) {
+            int choice = 0;
             if (playerOneTurn) {
-                //display table (NEEDS GETTER)
-                //display hand
-                //"pick a piece"
-                int pickedPiece;
-                if () { //play possible
-                    while (!table.playDomino()) {
-                        //display table (maybe getter)
-                        //display hand
-                        pickedPiece = s.nextInt();
+                table.displayBoard();
+                if(table.canPlay(p1.getPlayerHand())){
+                    System.out.println("Player One, What domino will you play?");
+                    table.displayHand(p1.getPlayerHand());
+                    choice = s.nextInt();
+                    while(!table.playPiece(p1.getPlayerHand().get(choice))){
+                        choice = s.nextInt();
                     }
-                    //play domino
+                    p1.getPlayerHand().remove(choice);
+                    playerOneTurn = !playerOneTurn;
                     passCounter = 0;
-                } else { //play impossible
-                    if () { //draw possible
-                        
-                    } else () { //pass
+                }else{
+                    if(dominoBag.canDraw()){
+                        System.out.println("Player One doesn't have any dominoes they can play, drawing domino");
+                        p1.drawDominoe(dominoBag.getDominoList());
+                    }else{
+                        playerOneTurn = !playerOneTurn;
+                        if(passCounter == 1){
+                            passCounter++;
+                        }
                         passCounter++;
                     }
                 }
-            } else { //same as above but for p2
-                while (!table.playDomino()) {
-                        //display table (maybe getter)
-                        //display hand
-                        pickedPiece = s.nextInt();
+            } else {
+                table.displayBoard();
+                if(table.canPlay(p2.getPlayerHand())){
+                    System.out.println("Player Two, What domino will you play?");
+                    table.displayHand(p2.getPlayerHand());
+                    choice = s.nextInt();
+                    while(!table.playPiece(p2.getPlayerHand().get(choice))){
+                        choice = s.nextInt();
                     }
-                    //play domino
+                    p2.getPlayerHand().remove(choice);
+                    playerOneTurn = !playerOneTurn;
                     passCounter = 0;
-                } else { //play impossible
-                    if () { //draw possible
-                        
-                    } else () { //pass
+                }else{
+                    if(dominoBag.canDraw()){
+                        System.out.println("Player Two doesn't have any dominoes they can play, drawing domino");
+                        p2.drawDominoe(dominoBag.getDominoList());
+                    }else{
+                        if(passCounter == 1){
+                            passCounter++;
+                        }
                         passCounter++;
                     }
                 }
             }
-            playerOneTurn = !playerOneTurn;
         }
-    //determine winner
-    //print win message
+        //determine winner
+        if(p1.getPlayerHand().size() == 0){
+            //print win message
+            System.out.println("Player One Won!");
+        }else if(p2.getPlayerHand().size() == 0){
+            //print win message
+            System.out.println("Player Two Won!");            
+        }else{            
+            if(p1.getPlayerHand().size() > p2.getPlayerHand().size()){
+                //print tie message
+                System.out.println("Tie! Player Two had less dominoes in hand");
+            }else if(p1.getPlayerHand().size() < p2.getPlayerHand().size()){
+                //print tie message
+                System.out.println("Tie! Player One had less dominoes in hand");
+            }else{
+                //print tie message
+                System.out.println("Tie!");
+            }
+        }
+
     }
 }
