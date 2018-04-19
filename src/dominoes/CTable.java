@@ -9,9 +9,10 @@ package dominoes;
  * Stores the state of the sorted pieces.
  */
 public class CTable {
-    String boardState;
-    int leftEnd;
-    int rightEnd;
+    private String boardState;
+    private int leftEnd;
+    private int rightEnd;
+    private ArrayList<int[]> playedDominoList = new ArrayList<>();
     
     public void firstPiece(int[] domino) {
         boardState = dominoToString(domino);
@@ -33,6 +34,30 @@ public class CTable {
         } else {
             System.out.print("You can't play that piece. Pick another.");
             return false;
+        }
+        playedDominoList.add(domino);
+        return true;
+    }
+    
+    public void displayBoard(){
+        System.out.println("| "+boardState+" |");
+    }
+    
+    public void displayHand(ArrayList<int[]> playerHand){
+        String playerHandDisplay = "";
+        for(int i = 0; i < playerHand.size(); i++){
+            playerHandDisplay += i + ": " + "|" + playerHand.get(i)[0] + "-" + playerHand.get(i)[1] + "|, ";
+        }
+        System.out.println(playerHandDisplay);
+    }
+    
+    public boolean canPlay(ArrayList<int[]> playerHand){
+        for(int i = 0; i < playerHand.size(); i++){
+            for(int j = 0; j < playedDominoList.size(); j++){
+                if(playerHand.get(i)[0] == playedDominoList.get(j)[0] && playerHand.get(i)[1] == playedDominoList.get(j)[1]){
+                    return false;
+                }
+            }
         }
         return true;
     }
