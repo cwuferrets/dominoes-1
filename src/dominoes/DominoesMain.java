@@ -41,6 +41,15 @@ public class DominoesMain {
         } else {
             System.out.println("Player Two is first.");
         }
+        System.out.println("How many people are playing?");
+        System.out.println("0 = two computers, 1 = one person and one computer, 2 = two people");
+        int numberOfPlayers = s.nextInt();
+        if(numberOfPlayers==0){
+            p1.setAuto(true);
+            p2.setAuto(true);        
+        }else if(numberOfPlayers==1){
+            p2.setAuto(true);
+        }
         gameLoop(table, p1, p2, dominoBag, playerOneTurn, s);
     }
     
@@ -53,9 +62,16 @@ public class DominoesMain {
                 if(table.canPlay(p1.getPlayerHand())){
                     System.out.println("Player One, What domino will you play?");
                     table.displayHand(p1.getPlayerHand());
-                    choice = s.nextInt();
-                    while(!table.playPiece(p1.getPlayerHand().get(choice))){
+                    if(!p1.isAuto()){
                         choice = s.nextInt();
+                        while(!table.playPiece(p1.getPlayerHand().get(choice))){
+                            choice = s.nextInt();
+                        }
+                    }else {
+                        choice = 0;
+                        while(!table.playPiece(p1.getPlayerHand().get(choice))){
+                            choice++;
+                        }
                     }
                     p1.getPlayerHand().remove(choice);
                     playerOneTurn = !playerOneTurn;
@@ -77,9 +93,16 @@ public class DominoesMain {
                 if(table.canPlay(p2.getPlayerHand())){
                     System.out.println("Player Two, What domino will you play?");
                     table.displayHand(p2.getPlayerHand());
-                    choice = s.nextInt();
-                    while(!table.playPiece(p2.getPlayerHand().get(choice))){
+                    if(!p2.isAuto()){
                         choice = s.nextInt();
+                        while(!table.playPiece(p2.getPlayerHand().get(choice))){
+                            choice = s.nextInt();
+                        }
+                    }else {
+                        choice = 0;
+                        while(!table.playPiece(p2.getPlayerHand().get(choice))){
+                            choice++;
+                        }
                     }
                     p2.getPlayerHand().remove(choice);
                     playerOneTurn = !playerOneTurn;
