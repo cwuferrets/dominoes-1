@@ -6,6 +6,7 @@
 package dominoes;
 
 import java.util.ArrayList;
+
 /**
  * Stores the state of the sorted pieces.
  */
@@ -13,7 +14,6 @@ public class CTable {
     private String boardState;
     private int leftEnd;
     private int rightEnd;
-    private ArrayList<int[]> playedDominoList = new ArrayList<>();
     
     public void firstPiece(int[] domino) {
         boardState = dominoToString(domino);
@@ -24,19 +24,22 @@ public class CTable {
     public boolean playPiece(int[] domino) {
         if (domino[0] == rightEnd) {
             boardState = boardState + dominoToString(domino);
+            this.rightEnd = domino[1];
         } else if (domino[1] == leftEnd) {
             boardState = dominoToString(domino) + boardState;
+            this.leftEnd = domino[0];
         } else if (domino[0] == leftEnd) {
             flip(domino);
             boardState = dominoToString(domino) + boardState;
+            this.leftEnd = domino[0];
         } else if (domino[1] == rightEnd) {
             flip(domino);
             boardState = boardState + dominoToString(domino);
+            this.rightEnd = domino[1];
         } else {
-            System.out.print("You can't play that piece. Pick another.");
+            System.out.println("You can't play " + dominoToString(domino) + ". Pick another.");
             return false;
         }
-        playedDominoList.add(domino);
         return true;
     }
     
@@ -54,13 +57,11 @@ public class CTable {
     
     public boolean canPlay(ArrayList<int[]> playerHand){
         for(int i = 0; i < playerHand.size(); i++){
-            for(int j = 0; j < playedDominoList.size(); j++){
-                if(playerHand.get(i)[0] == playedDominoList.get(j)[0] && playerHand.get(i)[1] == playedDominoList.get(j)[1]){
-                    return false;
+                if(playerHand.get(i)[0] == leftEnd || playerHand.get(i)[1] == leftEnd || playerHand.get(i)[0] == rightEnd || playerHand.get(i)[1] == rightEnd){
+                    return true;
                 }
-            }
         }
-        return true;
+        return false;
     }
     
     private String dominoToString(int[] domino) {
