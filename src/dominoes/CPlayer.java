@@ -26,6 +26,15 @@ public class CPlayer {
         }
     }
     
+    private boolean auto = false;
+    
+    public boolean isAuto(){
+        return auto;
+    }
+    public void setAuto(boolean shouldIPlay){
+        auto = shouldIPlay;
+    }
+    
     public ArrayList<int[]> getPlayerHand(){
         return playerHand;
     }
