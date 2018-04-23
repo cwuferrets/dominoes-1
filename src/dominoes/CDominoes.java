@@ -38,14 +38,6 @@ public class CDominoes {
         return false;
     }
     
-    public void updateDominoAvailabilty(int locationInDominoList, int Available){
-        dominoList.get(locationInDominoList)[2] = Available;
-    }
-    
-    public void updateDominoList(ArrayList<int[]> newList){
-        dominoList = newList;
-    }
-    
     public String toString(){
         
         String stateOfDominoes = "";
