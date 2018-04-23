@@ -36,11 +36,7 @@ public class DominoesMain {
         //draw hands
         p1.initilizeHand(dominoBag.getDominoList());
         p2.initilizeHand(dominoBag.getDominoList());
-        if (playerOneTurn) {
-            System.out.println("Player One is first.");
-        } else {
-            System.out.println("Player Two is first.");
-        }
+        //how many players
         System.out.println("How many people are playing?");
         System.out.println("0 = two computers, 1 = one person and one computer, 2 = two people");
         int numberOfPlayers = s.nextInt();
@@ -50,9 +46,16 @@ public class DominoesMain {
         }else if(numberOfPlayers==1){
             p2.setAuto(true);
         }
+        //who is first
+        if (playerOneTurn) {
+            System.out.println("Player One is first.");
+        } else {
+            System.out.println("Player Two is first.");
+        }
+        
         gameLoop(table, p1, p2, dominoBag, playerOneTurn, s);
     }
-    
+    //check if the game is over, runs through logic of a turn, repeat
     public static void gameLoop(CTable table, CPlayer p1, CPlayer p2, CDominoes dominoBag, boolean playerOneTurn, Scanner s) {
         int passCounter = 0;
         while(p1.getPlayerHand().size() > 0 && p2.getPlayerHand().size() > 0 && passCounter < 2) {
@@ -120,23 +123,39 @@ public class DominoesMain {
                 }
             }
         }
-        //determine winner
+        //determine who is winner
         if(p1.getPlayerHand().size() == 0){
             //print win message
             System.out.println("Player One Won!");
+            System.out.println("Player Two had " + p2.getPlayerHand().size() + " dominoes left in hand");
+            table.displayHand(p2.getPlayerHand());
         }else if(p2.getPlayerHand().size() == 0){
             //print win message
-            System.out.println("Player Two Won!");            
+            System.out.println("Player Two Won!");  
+            System.out.println("Player One had " + p1.getPlayerHand().size() + " dominoes left in hand");
+            table.displayHand(p1.getPlayerHand());
         }else{            
             if(p1.getPlayerHand().size() > p2.getPlayerHand().size()){
                 //print tie message
                 System.out.println("Tie! Player Two had less dominoes in hand");
+                System.out.println("Player Two had " + p2.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p2.getPlayerHand());
+                System.out.println("Player One had " + p1.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p1.getPlayerHand());
             }else if(p1.getPlayerHand().size() < p2.getPlayerHand().size()){
                 //print tie message
                 System.out.println("Tie! Player One had less dominoes in hand");
+                System.out.println("Player One had " + p1.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p1.getPlayerHand());
+                System.out.println("Player Two had " + p2.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p2.getPlayerHand());
             }else{
                 //print tie message
                 System.out.println("Tie!");
+                System.out.println("Player Two had " + p2.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p2.getPlayerHand());
+                System.out.println("Player One had " + p1.getPlayerHand().size() + " dominoes left in hand");
+                table.displayHand(p1.getPlayerHand());
             }
         }
 
