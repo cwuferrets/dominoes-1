@@ -12,7 +12,7 @@ import java.util.*;
 public class CPlayer {
     
     private ArrayList<int[]> playerHand = new ArrayList<>();
-    
+    //draw starting hand
     public void initilizeHand(ArrayList<int[]> dominoeBag){
         int index = 0;
         while(playerHand.size() < 10){
@@ -27,7 +27,7 @@ public class CPlayer {
     }
     
     private boolean auto = false;
-    
+    //AI controls
     public boolean isAuto(){
         return auto;
     }
@@ -38,11 +38,7 @@ public class CPlayer {
     public ArrayList<int[]> getPlayerHand(){
         return playerHand;
     }
-    
-    public void updatePlayerHand(ArrayList<int[]> newHand){
-        playerHand = newHand;
-    }
-    
+
     public void drawDominoe(ArrayList<int[]> dominoBag){
         int index = 0;
         boolean foundDomino = false;
